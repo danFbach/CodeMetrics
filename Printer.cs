@@ -6,7 +6,7 @@ public class Printer
 {
     public static readonly object _consoleLock = new();
 
-    private static readonly List<ConsoleColor> ColorSet = [ConsoleColor.White, ConsoleColor.Green, ConsoleColor.Yellow, ConsoleColor.Green, ConsoleColor.Red, ConsoleColor.Cyan];
+    private static readonly List<ConsoleColor> ColorSet = [ConsoleColor.White, ConsoleColor.Green, ConsoleColor.Yellow, ConsoleColor.Green, ConsoleColor.Red, ConsoleColor.White, ConsoleColor.Cyan];
 
     private static readonly Dictionary<string, int> headings = new() {
         { " File Type", 12 },
@@ -14,6 +14,7 @@ public class Printer
         { " Ttl Lines", 12 },
         { " Code Lines", 12 },
         { " Cmnt Lines", 12 },
+        { " Wht Lines", 12 },
         { " Density", 12 }
     };
 
@@ -48,6 +49,7 @@ public class Printer
                         " Ttl Lines" => item.Value.TotalLines.ToString("N0"),
                         " Code Lines" => item.Value.CodeLines.ToString("N0"),
                         " Cmnt Lines" => item.Value.CommentLines.ToString("N0"),
+                        " Wht Lines" => item.Value.WhitespaceLines.ToString("N0"),
                         " Density" => (item.Value.Density.ToString("N1") + "%"),
                         _ => string.Empty
                     };
@@ -67,6 +69,7 @@ public class Printer
                     " Ttl Lines" => c.Metrics.Sum(x => x.Value.TotalLines).ToString("N0"),
                     " Code Lines" => c.Metrics.Sum(x => x.Value.CodeLines).ToString("N0"),
                     " Cmnt Lines" => c.Metrics.Sum(x => x.Value.CommentLines).ToString("N0"),
+                    " Wht Lines" => c.Metrics.Sum(x => x.Value.WhitespaceLines).ToString("N0"),
                     " Density" => (c.Metrics.Sum(x => x.Value.CodeLines) / (decimal)c.Metrics.Sum(x => x.Value.TotalLines) * 100).ToString("N1") + "%",
                     _ => string.Empty
                 };
@@ -80,6 +83,7 @@ public class Printer
         var totalLines = items.SelectMany(x => x.Metrics.Select(x => x.Value.TotalLines)).Sum();
         var totalCodeLines = items.SelectMany(x => x.Metrics.Select(x => x.Value.CodeLines)).Sum();
         var totalCommentLines = items.SelectMany(x => x.Metrics.Select(x => x.Value.CommentLines)).Sum();
+        var totalWhiteLines = items.SelectMany(x => x.Metrics.Select(x => x.Value.WhitespaceLines)).Sum();
         var averageDensity = (items.SelectMany(x => x.Metrics.Select(x => x.Value.CodeLines)).Sum() / (decimal)items.SelectMany(x => x.Metrics.Select(x => x.Value.TotalLines)).Sum()) * 100;
         Console.WriteLine();
 
@@ -93,6 +97,7 @@ public class Printer
                 " Ttl Lines" => totalLines.ToString("N0"),
                 " Code Lines" => totalCodeLines.ToString("N0"),
                 " Cmnt Lines" => totalCommentLines.ToString("N0"),
+                " Wht Lines" => totalWhiteLines.ToString("N0"),
                 " Density" => (averageDensity.ToString("N1") + "%"),
                 _ => string.Empty
             };
@@ -115,6 +120,7 @@ public class Printer
                     " Ttl Lines" => extItems.Sum(x => x.Value.TotalLines).ToString("N0"),
                     " Code Lines" => extItems.Sum(x => x.Value.CodeLines).ToString("N0"),
                     " Cmnt Lines" => extItems.Sum(x => x.Value.CommentLines).ToString("N0"),
+                    " Wht Lines" => extItems.Sum(x => x.Value.WhitespaceLines).ToString("N0"),
                     " Density" => (((extItems.Sum(x => x.Value.CodeLines) / (decimal)extItems.Sum(x => x.Value.TotalLines)) * 100).ToString("N1") + "%"),
                     _ => string.Empty
                 };

@@ -29,6 +29,8 @@ public class MetricCollection
 
         public int CommentLines { get; set; }
 
+        public int WhitespaceLines { get; set; }
+
         public decimal Density => (TotalLines > 0 ? CodeLines / (decimal)TotalLines : 0) * 100;
     }
 }

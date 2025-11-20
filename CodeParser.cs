@@ -48,6 +48,7 @@ public partial class CodeParser
         var totalLines = 0;
         var codeLines = 0;
         var commentLines = 0;
+        var whitespaceLines = 0;
 
         await foreach (var line in File.ReadLinesAsync(fi.FullName))
         {
@@ -55,7 +56,9 @@ public partial class CodeParser
 
             if (CommentLineRegex.IsMatch(line))
                 commentLines++;
-            else if (!string.IsNullOrWhiteSpace(line))
+            else if (string.IsNullOrWhiteSpace(line))
+                whitespaceLines++;
+            else
                 codeLines++;
         }
 
@@ -65,6 +68,7 @@ public partial class CodeParser
             metric.TotalLines += totalLines;
             metric.CodeLines += codeLines;
             metric.CommentLines += commentLines;
+            metric.WhitespaceLines += whitespaceLines;
         }
     }
 
