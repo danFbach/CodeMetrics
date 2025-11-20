@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FullCodeMetrics": {
+      "commandName": "Project",
+      "commandLineArgs": "\"E:\\Lee.Core\\Lee.Core\" \"E:\\Lee.Data\\Lee.Data\" \"E:\\Lee.Services\\Lee.Services\" \"E:\\admin.lee\\admin.lee\" \"E:\\inven.lee\\inven.lee\" \"E:\\products.lee\\products.lee\" \"E:\\ShippingDept\\ShippingDept\""
+    }
+  }
+}
