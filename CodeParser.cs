@@ -70,6 +70,6 @@ public partial class CodeParser
 
     private static readonly Regex CommentLineRegex = MyRegex();
 
-    [GeneratedRegex(@"^\s*(//|///|/\*|#)", RegexOptions.Compiled)]
+    [GeneratedRegex(@"^\s*(//|///|/\*|@\*|#)", RegexOptions.Compiled)]
     private static partial Regex MyRegex();
 }
